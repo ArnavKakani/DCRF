@@ -1,0 +1,5 @@
+model,metric,layer,z,mean_trigger_rate,std_trigger_rate,auc_maxz_vs_wrong,false_trigger_rate,genuine_error_fraction,n_genuine,path,recovery_rate,ci_low,ci_high,n,genuine_flip_rate
+01-ai/Yi-6B-Chat,l2,26,4.0,,,0.59375,0.5,0.975609756097561,80,path_a_baseline,0.0,0.0,0.6576280471103807,2,0.025
+01-ai/Yi-6B-Chat,l2,26,4.0,,,0.59375,0.5,0.975609756097561,80,path_b_full_cure,0.07142857142857142,0.012721886112291636,0.3146926955395781,14,0.0875
+01-ai/Yi-6B-Chat,l2,26,4.0,,,0.59375,0.5,0.975609756097561,80,path_c_prompt_only,0.0,0.0,0.48990002040399916,4,0.0625
+01-ai/Yi-6B-Chat,l2,26,4.0,,,0.59375,0.5,0.975609756097561,80,path_d_rewind_only,0.0,0.0,0.3903430336530645,6,0.05

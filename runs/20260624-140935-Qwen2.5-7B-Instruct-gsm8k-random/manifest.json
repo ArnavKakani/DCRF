@@ -1,0 +1,280 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "dataset": "gsm8k",
+  "metric": "random",
+  "started": "20260624-140935",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 22,
+  "selected_z": 12.5,
+  "stages": {
+    "stage2_ablation": {
+      "status": "ok",
+      "started": "20260624-140935",
+      "finished": "20260624-144732",
+      "artifacts": [
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/ablation.jsonl",
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/trajectories.jsonl",
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/spike_traces.jsonl"
+      ],
+      "n_samples": 100,
+      "triggered": 100,
+      "trigger_rate": 1.0
+    },
+    "stage_labeling": {
+      "status": "ok",
+      "started": "20260624-144732",
+      "finished": "20260624-144732",
+      "artifacts": [
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/labeling.csv",
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/examples.md",
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/failure_types.csv"
+      ],
+      "n_problems": 100,
+      "n_baseline_correct": 90,
+      "n_baseline_wrong": 10,
+      "n_triggered": 100,
+      "auc_maxz_vs_wrong": null,
+      "false_trigger_rate_on_correct": 1.0,
+      "trigger_precision": 0.1,
+      "n_formatting_triggers": 0,
+      "n_genuine_error_triggers": 10,
+      "genuine_error_fraction": 0.1,
+      "is_control": true,
+      "per_path_genuine_flip": [
+        {
+          "path": "path_a_baseline",
+          "genuine_n": 10,
+          "recovered": 3,
+          "flip_rate": 0.3
+        },
+        {
+          "path": "path_b_full_cure",
+          "genuine_n": 10,
+          "recovered": 3,
+          "flip_rate": 0.3
+        },
+        {
+          "path": "path_c_prompt_only",
+          "genuine_n": 10,
+          "recovered": 2,
+          "flip_rate": 0.2
+        },
+        {
+          "path": "path_d_rewind_only",
+          "genuine_n": 10,
+          "recovered": 3,
+          "flip_rate": 0.3
+        }
+      ],
+      "failure_types": {
+        "arithmetic_logical": 10,
+        "semantic_drift": 0,
+        "format_template_collapse": 0,
+        "premature_termination": 0,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 10,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    },
+    "stage_threshold_downstream": {
+      "status": "ok",
+      "started": "20260624-144732",
+      "finished": "20260624-144732",
+      "artifacts": [],
+      "skipped": true
+    },
+    "stage3_robustness": {
+      "status": "ok",
+      "started": "20260624-144732",
+      "finished": "20260624-154714",
+      "artifacts": [
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/robustness.csv"
+      ],
+      "metric": "random",
+      "mean_trigger_rate": 1.0,
+      "std_trigger_rate": 0.0,
+      "n_seeds": 5
+    },
+    "stage4_judge": {
+      "status": "ok",
+      "started": "20260624-154714",
+      "finished": "20260624-154807",
+      "artifacts": [
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/judge_results.csv"
+      ],
+      "table": [
+        {
+          "path": "path_a_baseline",
+          "n": 100,
+          "recovered": 83,
+          "rate": 0.83,
+          "ci_low": 0.7445181876635703,
+          "ci_high": 0.8910652394022684
+        },
+        {
+          "path": "path_b_full_cure",
+          "n": 100,
+          "recovered": 75,
+          "rate": 0.75,
+          "ci_low": 0.6569535362992417,
+          "ci_high": 0.8245490599627573
+        },
+        {
+          "path": "path_c_prompt_only",
+          "n": 100,
+          "recovered": 69,
+          "rate": 0.69,
+          "ci_low": 0.5937376052204429,
+          "ci_high": 0.7722043679386762
+        },
+        {
+          "path": "path_d_rewind_only",
+          "n": 100,
+          "recovered": 88,
+          "rate": 0.88,
+          "ci_low": 0.8018773199709163,
+          "ci_high": 0.9300066263473222
+        }
+      ]
+    },
+    "stage_results": {
+      "status": "ok",
+      "started": "20260624-154807",
+      "finished": "20260624-154807",
+      "artifacts": [
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/results_methods.csv",
+        "./runs/results_table.csv"
+      ],
+      "rows": [
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "gsm8k",
+          "metric": "random",
+          "method": "random_trigger",
+          "n": 100,
+          "trigger_rate": 1.0,
+          "baseline_accuracy": 0.9,
+          "final_accuracy": 0.92,
+          "recovery_on_failures": 0.3,
+          "false_trigger_on_correct": 1.0
+        }
+      ]
+    },
+    "stage5_aggregate": {
+      "status": "ok",
+      "started": "20260624-154807",
+      "finished": "20260624-154807",
+      "artifacts": [
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/master_results.csv",
+        "./runs/master_results.csv",
+        "./runs/20260624-140935-Qwen2.5-7B-Instruct-gsm8k-random/plots/recovery_by_path.png"
+      ],
+      "rows": 4
+    }
+  }
+}

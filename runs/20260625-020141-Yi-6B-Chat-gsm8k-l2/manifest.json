@@ -1,0 +1,439 @@
+{
+  "model": "01-ai/Yi-6B-Chat",
+  "dataset": "gsm8k",
+  "metric": "l2",
+  "started": "20260625-020141",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 26,
+  "selected_z": 4.0,
+  "stages": {
+    "stage0_layer_select": {
+      "status": "ok",
+      "started": "20260625-020141",
+      "finished": "20260625-022130",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/layer_traces.csv",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/layer_select.csv"
+      ],
+      "selected_layer": 26,
+      "table": [
+        {
+          "layer": 18,
+          "tpr": 0.0,
+          "fpr": 0.15,
+          "separation": -0.15,
+          "target_mean_z": 7.412005036178746,
+          "control_mean_z": 7.756268633855368,
+          "z_gap": -0.34426359767662174,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 20,
+          "tpr": 0.0,
+          "fpr": 0.025,
+          "separation": -0.025,
+          "target_mean_z": 6.740579023910698,
+          "control_mean_z": 6.081841334048792,
+          "z_gap": 0.6587376898619057,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 22,
+          "tpr": 0.05,
+          "fpr": 0.05,
+          "separation": 0.0,
+          "target_mean_z": 7.534979209923323,
+          "control_mean_z": 6.475486871581213,
+          "z_gap": 1.0594923383421104,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 24,
+          "tpr": 0.2,
+          "fpr": 0.05,
+          "separation": 0.15000000000000002,
+          "target_mean_z": 9.049238626359527,
+          "control_mean_z": 6.388870360214901,
+          "z_gap": 2.6603682661446255,
+          "mean_d2h": 83.0
+        },
+        {
+          "layer": 26,
+          "tpr": 0.25,
+          "fpr": 0.075,
+          "separation": 0.175,
+          "target_mean_z": 9.909394894657463,
+          "control_mean_z": 7.230952305343569,
+          "z_gap": 2.678442589313894,
+          "mean_d2h": 84.0
+        }
+      ]
+    },
+    "stage1_threshold_sweep": {
+      "status": "ok",
+      "started": "20260625-022130",
+      "finished": "20260625-022130",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/threshold_sweep.csv"
+      ],
+      "selected_z": 4.0,
+      "reason": "no Z met fit TPR/FPR targets; took best fit (TPR - FPR)",
+      "val_tpr": 0.7,
+      "val_fpr": 0.85,
+      "table": [
+        {
+          "z": 2.0,
+          "tpr": 1.0,
+          "fpr": 0.95,
+          "separation": 0.050000000000000044,
+          "fit_tpr": 1.0,
+          "fit_fpr": 1.0,
+          "val_tpr": 1.0,
+          "val_fpr": 0.9,
+          "selected": false
+        },
+        {
+          "z": 4.0,
+          "tpr": 0.8,
+          "fpr": 0.8,
+          "separation": 0.0,
+          "fit_tpr": 0.9,
+          "fit_fpr": 0.75,
+          "val_tpr": 0.7,
+          "val_fpr": 0.85,
+          "selected": true
+        },
+        {
+          "z": 6.0,
+          "tpr": 0.65,
+          "fpr": 0.575,
+          "separation": 0.07500000000000007,
+          "fit_tpr": 0.6,
+          "fit_fpr": 0.5,
+          "val_tpr": 0.7,
+          "val_fpr": 0.65,
+          "selected": false
+        },
+        {
+          "z": 8.0,
+          "tpr": 0.5,
+          "fpr": 0.4,
+          "separation": 0.09999999999999998,
+          "fit_tpr": 0.4,
+          "fit_fpr": 0.35,
+          "val_tpr": 0.6,
+          "val_fpr": 0.45,
+          "selected": false
+        },
+        {
+          "z": 10.0,
+          "tpr": 0.45,
+          "fpr": 0.2,
+          "separation": 0.25,
+          "fit_tpr": 0.3,
+          "fit_fpr": 0.25,
+          "val_tpr": 0.6,
+          "val_fpr": 0.15,
+          "selected": false
+        },
+        {
+          "z": 12.5,
+          "tpr": 0.25,
+          "fpr": 0.075,
+          "separation": 0.175,
+          "fit_tpr": 0.1,
+          "fit_fpr": 0.1,
+          "val_tpr": 0.4,
+          "val_fpr": 0.05,
+          "selected": false
+        },
+        {
+          "z": 15.0,
+          "tpr": 0.15,
+          "fpr": 0.05,
+          "separation": 0.09999999999999999,
+          "fit_tpr": 0.1,
+          "fit_fpr": 0.05,
+          "val_tpr": 0.2,
+          "val_fpr": 0.05,
+          "selected": false
+        }
+      ]
+    },
+    "stage2_ablation": {
+      "status": "ok",
+      "started": "20260625-022130",
+      "finished": "20260625-034624",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/ablation.jsonl",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/trajectories.jsonl",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/spike_traces.jsonl"
+      ],
+      "n_samples": 100,
+      "triggered": 82,
+      "trigger_rate": 0.82
+    },
+    "stage_labeling": {
+      "status": "ok",
+      "started": "20260625-034624",
+      "finished": "20260625-034624",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/labeling.csv",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/examples.md",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/failure_types.csv"
+      ],
+      "n_problems": 100,
+      "n_baseline_correct": 4,
+      "n_baseline_wrong": 96,
+      "n_triggered": 82,
+      "auc_maxz_vs_wrong": 0.59375,
+      "false_trigger_rate_on_correct": 0.5,
+      "trigger_precision": 0.975609756097561,
+      "n_formatting_triggers": 0,
+      "n_genuine_error_triggers": 80,
+      "genuine_error_fraction": 0.975609756097561,
+      "is_control": false,
+      "per_path_genuine_flip": [
+        {
+          "path": "path_a_baseline",
+          "genuine_n": 80,
+          "recovered": 2,
+          "flip_rate": 0.025
+        },
+        {
+          "path": "path_b_full_cure",
+          "genuine_n": 80,
+          "recovered": 7,
+          "flip_rate": 0.0875
+        },
+        {
+          "path": "path_c_prompt_only",
+          "genuine_n": 80,
+          "recovered": 5,
+          "flip_rate": 0.0625
+        },
+        {
+          "path": "path_d_rewind_only",
+          "genuine_n": 80,
+          "recovered": 4,
+          "flip_rate": 0.05
+        }
+      ],
+      "failure_types": {
+        "arithmetic_logical": 16,
+        "semantic_drift": 62,
+        "format_template_collapse": 0,
+        "premature_termination": 2,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 80,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    },
+    "stage4_judge": {
+      "status": "ok",
+      "started": "20260625-034624",
+      "finished": "20260625-034804",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/judge_results.csv"
+      ],
+      "table": [
+        {
+          "path": "path_a_baseline",
+          "n": 2,
+          "recovered": 0,
+          "rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.6576280471103807
+        },
+        {
+          "path": "path_b_full_cure",
+          "n": 14,
+          "recovered": 1,
+          "rate": 0.07142857142857142,
+          "ci_low": 0.012721886112291636,
+          "ci_high": 0.3146926955395781
+        },
+        {
+          "path": "path_c_prompt_only",
+          "n": 4,
+          "recovered": 0,
+          "rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.48990002040399916
+        },
+        {
+          "path": "path_d_rewind_only",
+          "n": 6,
+          "recovered": 0,
+          "rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.3903430336530645
+        }
+      ]
+    },
+    "stage_results": {
+      "status": "ok",
+      "started": "20260625-034804",
+      "finished": "20260625-034804",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/results_methods.csv",
+        "./runs/results_table.csv"
+      ],
+      "rows": [
+        {
+          "model": "01-ai/Yi-6B-Chat",
+          "dataset": "gsm8k",
+          "metric": "l2",
+          "method": "baseline_cot",
+          "n": 100,
+          "trigger_rate": 0.0,
+          "baseline_accuracy": 0.04,
+          "final_accuracy": 0.04,
+          "recovery_on_failures": null,
+          "false_trigger_on_correct": 0.0
+        },
+        {
+          "model": "01-ai/Yi-6B-Chat",
+          "dataset": "gsm8k",
+          "metric": "l2",
+          "method": "prompt_only",
+          "n": 100,
+          "trigger_rate": 0.82,
+          "baseline_accuracy": 0.04,
+          "final_accuracy": 0.07,
+          "recovery_on_failures": 0.0625,
+          "false_trigger_on_correct": 0.5
+        },
+        {
+          "model": "01-ai/Yi-6B-Chat",
+          "dataset": "gsm8k",
+          "metric": "l2",
+          "method": "sdr_l2",
+          "n": 100,
+          "trigger_rate": 0.82,
+          "baseline_accuracy": 0.04,
+          "final_accuracy": 0.09,
+          "recovery_on_failures": 0.0875,
+          "false_trigger_on_correct": 0.5
+        }
+      ]
+    },
+    "stage5_aggregate": {
+      "status": "ok",
+      "started": "20260625-034804",
+      "finished": "20260625-034805",
+      "artifacts": [
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/master_results.csv",
+        "./runs/master_results.csv",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/plots/recovery_by_path.png",
+        "./runs/20260625-020141-Yi-6B-Chat-gsm8k-l2/plots/threshold_sweep.png"
+      ],
+      "rows": 4
+    }
+  }
+}

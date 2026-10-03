@@ -1,0 +1,439 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.1",
+  "dataset": "gsm8k",
+  "metric": "l2",
+  "started": "20260624-230642",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 18,
+  "selected_z": 2.0,
+  "stages": {
+    "stage0_layer_select": {
+      "status": "ok",
+      "started": "20260624-230642",
+      "finished": "20260624-231519",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/layer_traces.csv",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/layer_select.csv"
+      ],
+      "selected_layer": 18,
+      "table": [
+        {
+          "layer": 18,
+          "tpr": 0.0,
+          "fpr": 0.0,
+          "separation": 0.0,
+          "target_mean_z": 4.5227807420612685,
+          "control_mean_z": 3.944448015957856,
+          "z_gap": 0.5783327261034126,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 20,
+          "tpr": 0.0,
+          "fpr": 0.0,
+          "separation": 0.0,
+          "target_mean_z": 4.604533825010285,
+          "control_mean_z": 4.478685848454395,
+          "z_gap": 0.12584797655588975,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 22,
+          "tpr": 0.0,
+          "fpr": 0.0,
+          "separation": 0.0,
+          "target_mean_z": 4.694178947279153,
+          "control_mean_z": 4.78404231151635,
+          "z_gap": -0.0898633642371971,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 24,
+          "tpr": 0.0,
+          "fpr": 0.075,
+          "separation": -0.075,
+          "target_mean_z": 5.2550531682746975,
+          "control_mean_z": 5.445404910153433,
+          "z_gap": -0.19035174187873594,
+          "mean_d2h": ""
+        },
+        {
+          "layer": 26,
+          "tpr": 0.0,
+          "fpr": 0.1,
+          "separation": -0.1,
+          "target_mean_z": 5.870044623033364,
+          "control_mean_z": 6.450261961133687,
+          "z_gap": -0.580217338100323,
+          "mean_d2h": ""
+        }
+      ]
+    },
+    "stage1_threshold_sweep": {
+      "status": "ok",
+      "started": "20260624-231519",
+      "finished": "20260624-231519",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/threshold_sweep.csv"
+      ],
+      "selected_z": 2.0,
+      "reason": "no Z met fit TPR/FPR targets; took best fit (TPR - FPR)",
+      "val_tpr": 1.0,
+      "val_fpr": 0.9,
+      "table": [
+        {
+          "z": 2.0,
+          "tpr": 1.0,
+          "fpr": 0.9,
+          "separation": 0.09999999999999998,
+          "fit_tpr": 1.0,
+          "fit_fpr": 0.9,
+          "val_tpr": 1.0,
+          "val_fpr": 0.9,
+          "selected": true
+        },
+        {
+          "z": 4.0,
+          "tpr": 0.6,
+          "fpr": 0.4,
+          "separation": 0.19999999999999996,
+          "fit_tpr": 0.5,
+          "fit_fpr": 0.5,
+          "val_tpr": 0.7,
+          "val_fpr": 0.3,
+          "selected": false
+        },
+        {
+          "z": 6.0,
+          "tpr": 0.15,
+          "fpr": 0.125,
+          "separation": 0.024999999999999994,
+          "fit_tpr": 0.1,
+          "fit_fpr": 0.15,
+          "val_tpr": 0.2,
+          "val_fpr": 0.1,
+          "selected": false
+        },
+        {
+          "z": 8.0,
+          "tpr": 0.05,
+          "fpr": 0.05,
+          "separation": 0.0,
+          "fit_tpr": 0.0,
+          "fit_fpr": 0.1,
+          "val_tpr": 0.1,
+          "val_fpr": 0.0,
+          "selected": false
+        },
+        {
+          "z": 10.0,
+          "tpr": 0.0,
+          "fpr": 0.0,
+          "separation": 0.0,
+          "fit_tpr": 0.0,
+          "fit_fpr": 0.0,
+          "val_tpr": 0.0,
+          "val_fpr": 0.0,
+          "selected": false
+        },
+        {
+          "z": 12.5,
+          "tpr": 0.0,
+          "fpr": 0.0,
+          "separation": 0.0,
+          "fit_tpr": 0.0,
+          "fit_fpr": 0.0,
+          "val_tpr": 0.0,
+          "val_fpr": 0.0,
+          "selected": false
+        },
+        {
+          "z": 15.0,
+          "tpr": 0.0,
+          "fpr": 0.0,
+          "separation": 0.0,
+          "fit_tpr": 0.0,
+          "fit_fpr": 0.0,
+          "val_tpr": 0.0,
+          "val_fpr": 0.0,
+          "selected": false
+        }
+      ]
+    },
+    "stage2_ablation": {
+      "status": "ok",
+      "started": "20260624-231519",
+      "finished": "20260625-001554",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/ablation.jsonl",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/trajectories.jsonl",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/spike_traces.jsonl"
+      ],
+      "n_samples": 100,
+      "triggered": 99,
+      "trigger_rate": 0.99
+    },
+    "stage_labeling": {
+      "status": "ok",
+      "started": "20260625-001554",
+      "finished": "20260625-001554",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/labeling.csv",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/examples.md",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/failure_types.csv"
+      ],
+      "n_problems": 100,
+      "n_baseline_correct": 44,
+      "n_baseline_wrong": 56,
+      "n_triggered": 99,
+      "auc_maxz_vs_wrong": 0.5308441558441559,
+      "false_trigger_rate_on_correct": 0.9772727272727273,
+      "trigger_precision": 0.5656565656565656,
+      "n_formatting_triggers": 0,
+      "n_genuine_error_triggers": 56,
+      "genuine_error_fraction": 0.5656565656565656,
+      "is_control": false,
+      "per_path_genuine_flip": [
+        {
+          "path": "path_a_baseline",
+          "genuine_n": 56,
+          "recovered": 6,
+          "flip_rate": 0.10714285714285714
+        },
+        {
+          "path": "path_b_full_cure",
+          "genuine_n": 56,
+          "recovered": 9,
+          "flip_rate": 0.16071428571428573
+        },
+        {
+          "path": "path_c_prompt_only",
+          "genuine_n": 56,
+          "recovered": 10,
+          "flip_rate": 0.17857142857142858
+        },
+        {
+          "path": "path_d_rewind_only",
+          "genuine_n": 56,
+          "recovered": 3,
+          "flip_rate": 0.05357142857142857
+        }
+      ],
+      "failure_types": {
+        "arithmetic_logical": 50,
+        "semantic_drift": 3,
+        "format_template_collapse": 0,
+        "premature_termination": 3,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 56,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    },
+    "stage4_judge": {
+      "status": "ok",
+      "started": "20260625-001554",
+      "finished": "20260625-001738",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/judge_results.csv"
+      ],
+      "table": [
+        {
+          "path": "path_a_baseline",
+          "n": 55,
+          "recovered": 50,
+          "rate": 0.9090909090909091,
+          "ci_low": 0.8042226375086602,
+          "ci_high": 0.9605424266636261
+        },
+        {
+          "path": "path_b_full_cure",
+          "n": 52,
+          "recovered": 47,
+          "rate": 0.9038461538461539,
+          "ci_low": 0.79390118138839,
+          "ci_high": 0.9582262648165898
+        },
+        {
+          "path": "path_c_prompt_only",
+          "n": 44,
+          "recovered": 41,
+          "rate": 0.9318181818181818,
+          "ci_low": 0.8177467866338279,
+          "ci_high": 0.9765410298271597
+        },
+        {
+          "path": "path_d_rewind_only",
+          "n": 59,
+          "recovered": 51,
+          "rate": 0.864406779661017,
+          "ci_low": 0.7546010154508226,
+          "ci_high": 0.9296590925031444
+        }
+      ]
+    },
+    "stage_results": {
+      "status": "ok",
+      "started": "20260625-001738",
+      "finished": "20260625-001738",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/results_methods.csv",
+        "./runs/results_table.csv"
+      ],
+      "rows": [
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.1",
+          "dataset": "gsm8k",
+          "metric": "l2",
+          "method": "baseline_cot",
+          "n": 100,
+          "trigger_rate": 0.0,
+          "baseline_accuracy": 0.44,
+          "final_accuracy": 0.44,
+          "recovery_on_failures": null,
+          "false_trigger_on_correct": 0.0
+        },
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.1",
+          "dataset": "gsm8k",
+          "metric": "l2",
+          "method": "prompt_only",
+          "n": 100,
+          "trigger_rate": 0.99,
+          "baseline_accuracy": 0.44,
+          "final_accuracy": 0.44,
+          "recovery_on_failures": 0.17857142857142858,
+          "false_trigger_on_correct": 0.9772727272727273
+        },
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.1",
+          "dataset": "gsm8k",
+          "metric": "l2",
+          "method": "sdr_l2",
+          "n": 100,
+          "trigger_rate": 0.99,
+          "baseline_accuracy": 0.44,
+          "final_accuracy": 0.39,
+          "recovery_on_failures": 0.16071428571428573,
+          "false_trigger_on_correct": 0.9772727272727273
+        }
+      ]
+    },
+    "stage5_aggregate": {
+      "status": "ok",
+      "started": "20260625-001738",
+      "finished": "20260625-001738",
+      "artifacts": [
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/master_results.csv",
+        "./runs/master_results.csv",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/plots/recovery_by_path.png",
+        "./runs/20260624-230642-Mistral-7B-Instruct-v0.1-gsm8k-l2/plots/threshold_sweep.png"
+      ],
+      "rows": 4
+    }
+  }
+}

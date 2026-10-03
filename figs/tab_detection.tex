@@ -1,0 +1,12 @@
+\begin{tabular}{llcccc}
+\toprule
+\bf Model & \bf Dataset & \bf Metric & \bf AUC & \bf $n_{\text{genuine}}$ & \bf False-trigger \\
+\midrule
+Qwen2.5-7B & GSM8K & Sinkhorn & 0.62 & 2 & 0.17 \\
+Qwen2.5-7B & GSM8K & L2 & 0.46 & 5 & 0.48 \\
+Qwen2.5-7B & SVAMP & L2 & 0.55 & 6 & 0.96 \\
+Qwen2.5-7B & SVAMP & Sinkhorn & 0.67 & 6 & 0.89 \\
+Mistral-7B & GSM8K & Sinkhorn & \bf 0.51 & \bf 35 & 0.68 \\
+Mistral-7B & GSM8K & L2 & \bf 0.53 & \bf 56 & 0.98 \\
+\bottomrule
+\end{tabular}

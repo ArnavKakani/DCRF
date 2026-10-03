@@ -1,0 +1,510 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "dataset": "gsm8k",
+  "metric": "sinkhorn",
+  "started": "20260624-113828",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 22,
+  "selected_z": 15.0,
+  "stages": {
+    "stage0_layer_select": {
+      "status": "ok",
+      "started": "20260624-113828",
+      "finished": "20260624-115417",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/layer_traces.csv",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/layer_select.csv"
+      ],
+      "selected_layer": 22,
+      "table": [
+        {
+          "layer": 18,
+          "tpr": 0.65,
+          "fpr": 0.425,
+          "separation": 0.22500000000000003,
+          "target_mean_z": 15.442820967850128,
+          "control_mean_z": 16.9790417639821,
+          "z_gap": -1.5362207961319712,
+          "mean_d2h": 186.08333333333334
+        },
+        {
+          "layer": 20,
+          "tpr": 0.55,
+          "fpr": 0.375,
+          "separation": 0.17500000000000004,
+          "target_mean_z": 15.050175406030002,
+          "control_mean_z": 16.3822632261517,
+          "z_gap": -1.3320878201216981,
+          "mean_d2h": 175.3
+        },
+        {
+          "layer": 22,
+          "tpr": 0.55,
+          "fpr": 0.375,
+          "separation": 0.17500000000000004,
+          "target_mean_z": 13.936198664670219,
+          "control_mean_z": 13.586358964354394,
+          "z_gap": 0.34983970031582423,
+          "mean_d2h": 165.0
+        },
+        {
+          "layer": 24,
+          "tpr": 0.55,
+          "fpr": 0.45,
+          "separation": 0.10000000000000003,
+          "target_mean_z": 14.969393546410515,
+          "control_mean_z": 19.454954381061604,
+          "z_gap": -4.485560834651089,
+          "mean_d2h": 181.6
+        },
+        {
+          "layer": 26,
+          "tpr": 0.55,
+          "fpr": 0.475,
+          "separation": 0.07500000000000007,
+          "target_mean_z": 17.20687948503664,
+          "control_mean_z": 19.75769914673478,
+          "z_gap": -2.5508196616981387,
+          "mean_d2h": 174.0
+        }
+      ]
+    },
+    "stage1_threshold_sweep": {
+      "status": "ok",
+      "started": "20260624-115417",
+      "finished": "20260624-115417",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/threshold_sweep.csv"
+      ],
+      "selected_z": 15.0,
+      "reason": "highest Z with fit TPR>=0.6 and FPR<=0.2",
+      "val_tpr": 0.2,
+      "val_fpr": 0.35,
+      "table": [
+        {
+          "z": 2.0,
+          "tpr": 1.0,
+          "fpr": 0.95,
+          "separation": 0.050000000000000044,
+          "fit_tpr": 1.0,
+          "fit_fpr": 1.0,
+          "val_tpr": 1.0,
+          "val_fpr": 0.9,
+          "selected": false
+        },
+        {
+          "z": 4.0,
+          "tpr": 0.9,
+          "fpr": 0.9,
+          "separation": 0.0,
+          "fit_tpr": 0.9,
+          "fit_fpr": 0.95,
+          "val_tpr": 0.9,
+          "val_fpr": 0.85,
+          "selected": false
+        },
+        {
+          "z": 6.0,
+          "tpr": 0.85,
+          "fpr": 0.75,
+          "separation": 0.09999999999999998,
+          "fit_tpr": 0.8,
+          "fit_fpr": 0.7,
+          "val_tpr": 0.9,
+          "val_fpr": 0.8,
+          "selected": false
+        },
+        {
+          "z": 8.0,
+          "tpr": 0.65,
+          "fpr": 0.6,
+          "separation": 0.050000000000000044,
+          "fit_tpr": 0.7,
+          "fit_fpr": 0.5,
+          "val_tpr": 0.6,
+          "val_fpr": 0.7,
+          "selected": false
+        },
+        {
+          "z": 10.0,
+          "tpr": 0.6,
+          "fpr": 0.425,
+          "separation": 0.175,
+          "fit_tpr": 0.7,
+          "fit_fpr": 0.4,
+          "val_tpr": 0.5,
+          "val_fpr": 0.45,
+          "selected": false
+        },
+        {
+          "z": 12.5,
+          "tpr": 0.55,
+          "fpr": 0.375,
+          "separation": 0.17500000000000004,
+          "fit_tpr": 0.7,
+          "fit_fpr": 0.35,
+          "val_tpr": 0.4,
+          "val_fpr": 0.4,
+          "selected": false
+        },
+        {
+          "z": 15.0,
+          "tpr": 0.4,
+          "fpr": 0.275,
+          "separation": 0.125,
+          "fit_tpr": 0.6,
+          "fit_fpr": 0.2,
+          "val_tpr": 0.2,
+          "val_fpr": 0.35,
+          "selected": true
+        }
+      ]
+    },
+    "stage2_ablation": {
+      "status": "ok",
+      "started": "20260624-115417",
+      "finished": "20260624-121828",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/ablation.jsonl",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/trajectories.jsonl",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/spike_traces.jsonl"
+      ],
+      "n_samples": 100,
+      "triggered": 17,
+      "trigger_rate": 0.17
+    },
+    "stage_labeling": {
+      "status": "ok",
+      "started": "20260624-121828",
+      "finished": "20260624-121828",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/labeling.csv",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/examples.md",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/failure_types.csv"
+      ],
+      "n_problems": 100,
+      "n_baseline_correct": 90,
+      "n_baseline_wrong": 10,
+      "n_triggered": 17,
+      "auc_maxz_vs_wrong": 0.6233333333333333,
+      "false_trigger_rate_on_correct": 0.16666666666666666,
+      "trigger_precision": 0.11764705882352941,
+      "n_formatting_triggers": 0,
+      "n_genuine_error_triggers": 2,
+      "genuine_error_fraction": 0.11764705882352941,
+      "is_control": false,
+      "per_path_genuine_flip": [
+        {
+          "path": "path_a_baseline",
+          "genuine_n": 2,
+          "recovered": 0,
+          "flip_rate": 0.0
+        },
+        {
+          "path": "path_b_full_cure",
+          "genuine_n": 2,
+          "recovered": 0,
+          "flip_rate": 0.0
+        },
+        {
+          "path": "path_c_prompt_only",
+          "genuine_n": 2,
+          "recovered": 0,
+          "flip_rate": 0.0
+        },
+        {
+          "path": "path_d_rewind_only",
+          "genuine_n": 2,
+          "recovered": 0,
+          "flip_rate": 0.0
+        }
+      ],
+      "failure_types": {
+        "arithmetic_logical": 1,
+        "semantic_drift": 1,
+        "format_template_collapse": 0,
+        "premature_termination": 0,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 2,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    },
+    "stage_threshold_downstream": {
+      "status": "ok",
+      "started": "20260624-121828",
+      "finished": "20260624-132754",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/threshold_downstream.csv"
+      ],
+      "table": [
+        {
+          "z": 2.0,
+          "trigger_rate": 1.0,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 1.0,
+          "final_accuracy": 0.7
+        },
+        {
+          "z": 4.0,
+          "trigger_rate": 0.9,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.8888888888888888,
+          "final_accuracy": 0.75
+        },
+        {
+          "z": 6.0,
+          "trigger_rate": 0.85,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.8333333333333334,
+          "final_accuracy": 0.8
+        },
+        {
+          "z": 8.0,
+          "trigger_rate": 0.65,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.6111111111111112,
+          "final_accuracy": 0.75
+        },
+        {
+          "z": 10.0,
+          "trigger_rate": 0.6,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.5555555555555556,
+          "final_accuracy": 0.8
+        },
+        {
+          "z": 12.5,
+          "trigger_rate": 0.55,
+          "recovery_rate": 0.5,
+          "false_trigger_rate": 0.5,
+          "final_accuracy": 0.85
+        },
+        {
+          "z": 15.0,
+          "trigger_rate": 0.4,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.3333333333333333,
+          "final_accuracy": 0.85
+        }
+      ]
+    },
+    "stage3_robustness": {
+      "status": "ok",
+      "started": "20260624-132754",
+      "finished": "20260624-140925",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/robustness.csv"
+      ],
+      "metric": "sinkhorn",
+      "mean_trigger_rate": 0.21333333333333337,
+      "std_trigger_rate": 0.06182412330330468,
+      "n_seeds": 5
+    },
+    "stage4_judge": {
+      "status": "ok",
+      "started": "20260624-140925",
+      "finished": "20260624-140934",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/judge_results.csv"
+      ],
+      "table": [
+        {
+          "path": "path_a_baseline",
+          "n": 17,
+          "recovered": 13,
+          "rate": 0.7647058823529411,
+          "ci_low": 0.5273775411082839,
+          "ci_high": 0.9044511092832406
+        },
+        {
+          "path": "path_b_full_cure",
+          "n": 17,
+          "recovered": 10,
+          "rate": 0.5882352941176471,
+          "ci_low": 0.36005074385515545,
+          "ci_high": 0.7838921396086862
+        },
+        {
+          "path": "path_c_prompt_only",
+          "n": 17,
+          "recovered": 6,
+          "rate": 0.35294117647058826,
+          "ci_low": 0.17309486143904904,
+          "ci_high": 0.5870003327878818
+        },
+        {
+          "path": "path_d_rewind_only",
+          "n": 17,
+          "recovered": 16,
+          "rate": 0.9411764705882353,
+          "ci_low": 0.730174547964372,
+          "ci_high": 0.9895398693548358
+        }
+      ]
+    },
+    "stage_results": {
+      "status": "ok",
+      "started": "20260624-140934",
+      "finished": "20260624-140934",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/results_methods.csv",
+        "./runs/results_table.csv"
+      ],
+      "rows": [
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "gsm8k",
+          "metric": "sinkhorn",
+          "method": "baseline_cot",
+          "n": 100,
+          "trigger_rate": 0.0,
+          "baseline_accuracy": 0.9,
+          "final_accuracy": 0.9,
+          "recovery_on_failures": null,
+          "false_trigger_on_correct": 0.0
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "gsm8k",
+          "metric": "sinkhorn",
+          "method": "prompt_only",
+          "n": 100,
+          "trigger_rate": 0.17,
+          "baseline_accuracy": 0.9,
+          "final_accuracy": 0.89,
+          "recovery_on_failures": 0.0,
+          "false_trigger_on_correct": 0.16666666666666666
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "gsm8k",
+          "metric": "sinkhorn",
+          "method": "sdr_sinkhorn",
+          "n": 100,
+          "trigger_rate": 0.17,
+          "baseline_accuracy": 0.9,
+          "final_accuracy": 0.89,
+          "recovery_on_failures": 0.0,
+          "false_trigger_on_correct": 0.16666666666666666
+        }
+      ]
+    },
+    "stage5_aggregate": {
+      "status": "ok",
+      "started": "20260624-140934",
+      "finished": "20260624-140935",
+      "artifacts": [
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/master_results.csv",
+        "./runs/master_results.csv",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/plots/recovery_by_path.png",
+        "./runs/20260624-113828-Qwen2.5-7B-Instruct-gsm8k-sinkhorn/plots/threshold_sweep.png"
+      ],
+      "rows": 4
+    }
+  }
+}

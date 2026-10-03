@@ -1,0 +1,510 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "dataset": "svamp",
+  "metric": "sinkhorn",
+  "started": "20260624-175251",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 26,
+  "selected_z": 6.0,
+  "stages": {
+    "stage0_layer_select": {
+      "status": "ok",
+      "started": "20260624-175251",
+      "finished": "20260624-180552",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/layer_traces.csv",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/layer_select.csv"
+      ],
+      "selected_layer": 26,
+      "table": [
+        {
+          "layer": 18,
+          "tpr": 0.2,
+          "fpr": 0.425,
+          "separation": -0.22499999999999998,
+          "target_mean_z": 9.0259070578965,
+          "control_mean_z": 16.9790417639821,
+          "z_gap": -7.953134706085599,
+          "mean_d2h": 96.25
+        },
+        {
+          "layer": 20,
+          "tpr": 0.15,
+          "fpr": 0.375,
+          "separation": -0.225,
+          "target_mean_z": 7.656883263081562,
+          "control_mean_z": 16.3822632261517,
+          "z_gap": -8.725379963070138,
+          "mean_d2h": 112.66666666666667
+        },
+        {
+          "layer": 22,
+          "tpr": 0.1,
+          "fpr": 0.375,
+          "separation": -0.275,
+          "target_mean_z": 8.01070139326172,
+          "control_mean_z": 13.586358964354394,
+          "z_gap": -5.575657571092675,
+          "mean_d2h": 151.5
+        },
+        {
+          "layer": 24,
+          "tpr": 0.2,
+          "fpr": 0.45,
+          "separation": -0.25,
+          "target_mean_z": 11.693261769049794,
+          "control_mean_z": 19.454954381061604,
+          "z_gap": -7.76169261201181,
+          "mean_d2h": 99.5
+        },
+        {
+          "layer": 26,
+          "tpr": 0.55,
+          "fpr": 0.475,
+          "separation": 0.07500000000000007,
+          "target_mean_z": 15.577814971324287,
+          "control_mean_z": 19.75769914673478,
+          "z_gap": -4.179884175410493,
+          "mean_d2h": 64.18181818181819
+        }
+      ]
+    },
+    "stage1_threshold_sweep": {
+      "status": "ok",
+      "started": "20260624-180552",
+      "finished": "20260624-180552",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/threshold_sweep.csv"
+      ],
+      "selected_z": 6.0,
+      "reason": "no Z met fit TPR/FPR targets; took best fit (TPR - FPR)",
+      "val_tpr": 1.0,
+      "val_fpr": 0.85,
+      "table": [
+        {
+          "z": 2.0,
+          "tpr": 1.0,
+          "fpr": 0.95,
+          "separation": 0.050000000000000044,
+          "fit_tpr": 1.0,
+          "fit_fpr": 0.95,
+          "val_tpr": 1.0,
+          "val_fpr": 0.95,
+          "selected": false
+        },
+        {
+          "z": 4.0,
+          "tpr": 1.0,
+          "fpr": 0.875,
+          "separation": 0.125,
+          "fit_tpr": 1.0,
+          "fit_fpr": 0.9,
+          "val_tpr": 1.0,
+          "val_fpr": 0.85,
+          "selected": false
+        },
+        {
+          "z": 6.0,
+          "tpr": 1.0,
+          "fpr": 0.75,
+          "separation": 0.25,
+          "fit_tpr": 1.0,
+          "fit_fpr": 0.65,
+          "val_tpr": 1.0,
+          "val_fpr": 0.85,
+          "selected": true
+        },
+        {
+          "z": 8.0,
+          "tpr": 0.9,
+          "fpr": 0.625,
+          "separation": 0.275,
+          "fit_tpr": 0.9,
+          "fit_fpr": 0.6,
+          "val_tpr": 0.9,
+          "val_fpr": 0.65,
+          "selected": false
+        },
+        {
+          "z": 10.0,
+          "tpr": 0.75,
+          "fpr": 0.525,
+          "separation": 0.22499999999999998,
+          "fit_tpr": 0.7,
+          "fit_fpr": 0.5,
+          "val_tpr": 0.8,
+          "val_fpr": 0.55,
+          "selected": false
+        },
+        {
+          "z": 12.5,
+          "tpr": 0.55,
+          "fpr": 0.475,
+          "separation": 0.07500000000000007,
+          "fit_tpr": 0.6,
+          "fit_fpr": 0.45,
+          "val_tpr": 0.5,
+          "val_fpr": 0.5,
+          "selected": false
+        },
+        {
+          "z": 15.0,
+          "tpr": 0.55,
+          "fpr": 0.45,
+          "separation": 0.10000000000000003,
+          "fit_tpr": 0.6,
+          "fit_fpr": 0.4,
+          "val_tpr": 0.5,
+          "val_fpr": 0.5,
+          "selected": false
+        }
+      ]
+    },
+    "stage2_ablation": {
+      "status": "ok",
+      "started": "20260624-180552",
+      "finished": "20260624-183346",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/ablation.jsonl",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/trajectories.jsonl",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/spike_traces.jsonl"
+      ],
+      "n_samples": 100,
+      "triggered": 89,
+      "trigger_rate": 0.89
+    },
+    "stage_labeling": {
+      "status": "ok",
+      "started": "20260624-183346",
+      "finished": "20260624-183346",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/labeling.csv",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/examples.md",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/failure_types.csv"
+      ],
+      "n_problems": 100,
+      "n_baseline_correct": 93,
+      "n_baseline_wrong": 7,
+      "n_triggered": 89,
+      "auc_maxz_vs_wrong": 0.6651305683563749,
+      "false_trigger_rate_on_correct": 0.8924731182795699,
+      "trigger_precision": 0.06741573033707865,
+      "n_formatting_triggers": 0,
+      "n_genuine_error_triggers": 6,
+      "genuine_error_fraction": 0.06741573033707865,
+      "is_control": false,
+      "per_path_genuine_flip": [
+        {
+          "path": "path_a_baseline",
+          "genuine_n": 6,
+          "recovered": 0,
+          "flip_rate": 0.0
+        },
+        {
+          "path": "path_b_full_cure",
+          "genuine_n": 6,
+          "recovered": 1,
+          "flip_rate": 0.16666666666666666
+        },
+        {
+          "path": "path_c_prompt_only",
+          "genuine_n": 6,
+          "recovered": 1,
+          "flip_rate": 0.16666666666666666
+        },
+        {
+          "path": "path_d_rewind_only",
+          "genuine_n": 6,
+          "recovered": 1,
+          "flip_rate": 0.16666666666666666
+        }
+      ],
+      "failure_types": {
+        "arithmetic_logical": 5,
+        "semantic_drift": 1,
+        "format_template_collapse": 0,
+        "premature_termination": 0,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 6,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    },
+    "stage_threshold_downstream": {
+      "status": "ok",
+      "started": "20260624-183346",
+      "finished": "20260624-191132",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/threshold_downstream.csv"
+      ],
+      "table": [
+        {
+          "z": 2.0,
+          "trigger_rate": 1.0,
+          "recovery_rate": 0.5,
+          "false_trigger_rate": 1.0,
+          "final_accuracy": 0.9
+        },
+        {
+          "z": 4.0,
+          "trigger_rate": 1.0,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 1.0,
+          "final_accuracy": 0.85
+        },
+        {
+          "z": 6.0,
+          "trigger_rate": 1.0,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 1.0,
+          "final_accuracy": 0.9
+        },
+        {
+          "z": 8.0,
+          "trigger_rate": 0.9,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.8888888888888888,
+          "final_accuracy": 0.9
+        },
+        {
+          "z": 10.0,
+          "trigger_rate": 0.75,
+          "recovery_rate": 0.5,
+          "false_trigger_rate": 0.7222222222222222,
+          "final_accuracy": 0.95
+        },
+        {
+          "z": 12.5,
+          "trigger_rate": 0.55,
+          "recovery_rate": 0.5,
+          "false_trigger_rate": 0.5,
+          "final_accuracy": 0.95
+        },
+        {
+          "z": 15.0,
+          "trigger_rate": 0.55,
+          "recovery_rate": 0.0,
+          "false_trigger_rate": 0.5,
+          "final_accuracy": 0.9
+        }
+      ]
+    },
+    "stage3_robustness": {
+      "status": "ok",
+      "started": "20260624-191132",
+      "finished": "20260624-195512",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/robustness.csv"
+      ],
+      "metric": "sinkhorn",
+      "mean_trigger_rate": 0.9466666666666667,
+      "std_trigger_rate": 0.01632993161855452,
+      "n_seeds": 5
+    },
+    "stage4_judge": {
+      "status": "ok",
+      "started": "20260624-195512",
+      "finished": "20260624-195559",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/judge_results.csv"
+      ],
+      "table": [
+        {
+          "path": "path_a_baseline",
+          "n": 89,
+          "recovered": 68,
+          "rate": 0.7640449438202247,
+          "ci_low": 0.6660617969546638,
+          "ci_high": 0.8401767857496412
+        },
+        {
+          "path": "path_b_full_cure",
+          "n": 89,
+          "recovered": 62,
+          "rate": 0.6966292134831461,
+          "ci_low": 0.5946267078910946,
+          "ci_high": 0.7823594707184943
+        },
+        {
+          "path": "path_c_prompt_only",
+          "n": 89,
+          "recovered": 54,
+          "rate": 0.6067415730337079,
+          "ci_low": 0.5028634843406101,
+          "ci_high": 0.7017861554760239
+        },
+        {
+          "path": "path_d_rewind_only",
+          "n": 89,
+          "recovered": 66,
+          "rate": 0.7415730337078652,
+          "ci_low": 0.6419686369260151,
+          "ci_high": 0.8211858110800512
+        }
+      ]
+    },
+    "stage_results": {
+      "status": "ok",
+      "started": "20260624-195559",
+      "finished": "20260624-195559",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/results_methods.csv",
+        "./runs/results_table.csv"
+      ],
+      "rows": [
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "svamp",
+          "metric": "sinkhorn",
+          "method": "baseline_cot",
+          "n": 100,
+          "trigger_rate": 0.0,
+          "baseline_accuracy": 0.93,
+          "final_accuracy": 0.93,
+          "recovery_on_failures": null,
+          "false_trigger_on_correct": 0.0
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "svamp",
+          "metric": "sinkhorn",
+          "method": "prompt_only",
+          "n": 100,
+          "trigger_rate": 0.89,
+          "baseline_accuracy": 0.93,
+          "final_accuracy": 0.91,
+          "recovery_on_failures": 0.16666666666666666,
+          "false_trigger_on_correct": 0.8924731182795699
+        },
+        {
+          "model": "Qwen/Qwen2.5-7B-Instruct",
+          "dataset": "svamp",
+          "metric": "sinkhorn",
+          "method": "sdr_sinkhorn",
+          "n": 100,
+          "trigger_rate": 0.89,
+          "baseline_accuracy": 0.93,
+          "final_accuracy": 0.93,
+          "recovery_on_failures": 0.16666666666666666,
+          "false_trigger_on_correct": 0.8924731182795699
+        }
+      ]
+    },
+    "stage5_aggregate": {
+      "status": "ok",
+      "started": "20260624-195559",
+      "finished": "20260624-195559",
+      "artifacts": [
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/master_results.csv",
+        "./runs/master_results.csv",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/plots/recovery_by_path.png",
+        "./runs/20260624-175251-Qwen2.5-7B-Instruct-svamp-sinkhorn/plots/threshold_sweep.png"
+      ],
+      "rows": 4
+    }
+  }
+}

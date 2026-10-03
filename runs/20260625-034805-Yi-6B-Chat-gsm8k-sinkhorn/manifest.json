@@ -1,0 +1,284 @@
+{
+  "model": "01-ai/Yi-6B-Chat",
+  "dataset": "gsm8k",
+  "metric": "sinkhorn",
+  "started": "20260625-034805",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 24,
+  "selected_z": 2.0,
+  "stages": {
+    "stage0_layer_select": {
+      "status": "ok",
+      "started": "20260625-034805",
+      "finished": "20260625-041700",
+      "artifacts": [
+        "./runs/20260625-034805-Yi-6B-Chat-gsm8k-sinkhorn/layer_traces.csv",
+        "./runs/20260625-034805-Yi-6B-Chat-gsm8k-sinkhorn/layer_select.csv"
+      ],
+      "selected_layer": 24,
+      "table": [
+        {
+          "layer": 18,
+          "tpr": 0.5,
+          "fpr": 0.45,
+          "separation": 0.04999999999999999,
+          "target_mean_z": 12.74080206636547,
+          "control_mean_z": 15.383968270360597,
+          "z_gap": -2.6431662039951274,
+          "mean_d2h": 90.0
+        },
+        {
+          "layer": 20,
+          "tpr": 0.35,
+          "fpr": 0.3,
+          "separation": 0.04999999999999999,
+          "target_mean_z": 11.418448245950156,
+          "control_mean_z": 12.727717235638766,
+          "z_gap": -1.3092689896886096,
+          "mean_d2h": 108.66666666666667
+        },
+        {
+          "layer": 22,
+          "tpr": 0.3,
+          "fpr": 0.375,
+          "separation": -0.07500000000000001,
+          "target_mean_z": 12.344319634399879,
+          "control_mean_z": 11.514728982331054,
+          "z_gap": 0.8295906520688252,
+          "mean_d2h": 206.0
+        },
+        {
+          "layer": 24,
+          "tpr": 0.4,
+          "fpr": 0.375,
+          "separation": 0.025000000000000022,
+          "target_mean_z": 13.806403126154624,
+          "control_mean_z": 11.221896400901251,
+          "z_gap": 2.584506725253373,
+          "mean_d2h": 185.25
+        },
+        {
+          "layer": 26,
+          "tpr": 0.45,
+          "fpr": 0.35,
+          "separation": 0.10000000000000003,
+          "target_mean_z": 14.873138803303297,
+          "control_mean_z": 12.60473014656126,
+          "z_gap": 2.2684086567420376,
+          "mean_d2h": 165.6
+        }
+      ]
+    },
+    "stage1_threshold_sweep": {
+      "status": "ok",
+      "started": "20260625-041700",
+      "finished": "20260625-041700",
+      "artifacts": [
+        "./runs/20260625-034805-Yi-6B-Chat-gsm8k-sinkhorn/threshold_sweep.csv"
+      ],
+      "selected_z": 2.0,
+      "reason": "no Z met fit TPR/FPR targets; took best fit (TPR - FPR)",
+      "val_tpr": 1.0,
+      "val_fpr": 0.95,
+      "table": [
+        {
+          "z": 2.0,
+          "tpr": 1.0,
+          "fpr": 0.975,
+          "separation": 0.025000000000000022,
+          "fit_tpr": 1.0,
+          "fit_fpr": 1.0,
+          "val_tpr": 1.0,
+          "val_fpr": 0.95,
+          "selected": true
+        },
+        {
+          "z": 4.0,
+          "tpr": 1.0,
+          "fpr": 0.9,
+          "separation": 0.09999999999999998,
+          "fit_tpr": 1.0,
+          "fit_fpr": 1.0,
+          "val_tpr": 1.0,
+          "val_fpr": 0.8,
+          "selected": false
+        },
+        {
+          "z": 6.0,
+          "tpr": 0.95,
+          "fpr": 0.8,
+          "separation": 0.1499999999999999,
+          "fit_tpr": 0.9,
+          "fit_fpr": 0.9,
+          "val_tpr": 1.0,
+          "val_fpr": 0.7,
+          "selected": false
+        },
+        {
+          "z": 8.0,
+          "tpr": 0.75,
+          "fpr": 0.65,
+          "separation": 0.09999999999999998,
+          "fit_tpr": 0.7,
+          "fit_fpr": 0.75,
+          "val_tpr": 0.8,
+          "val_fpr": 0.55,
+          "selected": false
+        },
+        {
+          "z": 10.0,
+          "tpr": 0.55,
+          "fpr": 0.475,
+          "separation": 0.07500000000000007,
+          "fit_tpr": 0.5,
+          "fit_fpr": 0.6,
+          "val_tpr": 0.6,
+          "val_fpr": 0.35,
+          "selected": false
+        },
+        {
+          "z": 12.5,
+          "tpr": 0.4,
+          "fpr": 0.375,
+          "separation": 0.025000000000000022,
+          "fit_tpr": 0.3,
+          "fit_fpr": 0.45,
+          "val_tpr": 0.5,
+          "val_fpr": 0.3,
+          "selected": false
+        },
+        {
+          "z": 15.0,
+          "tpr": 0.35,
+          "fpr": 0.225,
+          "separation": 0.12499999999999997,
+          "fit_tpr": 0.3,
+          "fit_fpr": 0.3,
+          "val_tpr": 0.4,
+          "val_fpr": 0.15,
+          "selected": false
+        }
+      ]
+    },
+    "stage2_ablation": {
+      "status": "running",
+      "started": "20260625-041700"
+    },
+    "stage_labeling": {
+      "failure_types": {
+        "arithmetic_logical": 14,
+        "semantic_drift": 64,
+        "format_template_collapse": 0,
+        "premature_termination": 4,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 82,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    }
+  }
+}

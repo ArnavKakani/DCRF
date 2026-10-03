@@ -1,0 +1,12 @@
+\begin{tabular}{llccccc}
+\toprule
+\bf Model & \bf Dataset & \bf Metric & \bf Baseline & \bf Prompt-only & \bf Full & \bf Random \\
+\midrule
+Mistral-7B & GSM8K & L2 & 0.44 & 0.44 & 0.39 & 0.37 \\
+Mistral-7B & GSM8K & Sinkhorn & 0.44 & 0.46 & 0.46 & 0.37 \\
+Qwen2.5-7B & GSM8K & L2 & 0.90 & 0.87 & 0.87 & 0.92 \\
+Qwen2.5-7B & GSM8K & Sinkhorn & 0.90 & 0.89 & 0.89 & 0.92 \\
+Qwen2.5-7B & SVAMP & L2 & 0.93 & 0.93 & 0.91 & 0.91 \\
+Qwen2.5-7B & SVAMP & Sinkhorn & 0.93 & 0.91 & 0.93 & 0.91 \\
+\bottomrule
+\end{tabular}

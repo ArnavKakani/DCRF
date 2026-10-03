@@ -1,0 +1,5 @@
+path,genuine_n,recovered,flip_rate
+path_a_baseline,2,0,0.0
+path_b_full_cure,2,0,0.0
+path_c_prompt_only,2,0,0.0
+path_d_rewind_only,2,0,0.0

@@ -1,0 +1,2 @@
+model,dataset,metric,method,n,trigger_rate,baseline_accuracy,final_accuracy,recovery_on_failures,false_trigger_on_correct
+Qwen/Qwen2.5-7B-Instruct,svamp,random,random_trigger,100,1.0,0.93,0.91,0.14285714285714285,1.0

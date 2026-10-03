@@ -1,0 +1,6 @@
+failure_type,count,fraction
+arithmetic_logical,29,0.8285714285714286
+semantic_drift,2,0.05714285714285714
+format_template_collapse,0,0.0
+premature_termination,4,0.11428571428571428
+other_unclear,0,0.0

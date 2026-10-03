@@ -1,0 +1,4 @@
+model,dataset,metric,method,n,trigger_rate,baseline_accuracy,final_accuracy,recovery_on_failures,false_trigger_on_correct
+Qwen/Qwen2.5-7B-Instruct,svamp,sinkhorn,baseline_cot,100,0.0,0.93,0.93,,0.0
+Qwen/Qwen2.5-7B-Instruct,svamp,sinkhorn,prompt_only,100,0.89,0.93,0.91,0.16666666666666666,0.8924731182795699
+Qwen/Qwen2.5-7B-Instruct,svamp,sinkhorn,sdr_sinkhorn,100,0.89,0.93,0.93,0.16666666666666666,0.8924731182795699

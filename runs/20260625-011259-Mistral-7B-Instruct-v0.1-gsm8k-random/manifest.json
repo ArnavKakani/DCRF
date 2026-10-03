@@ -1,0 +1,261 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.1",
+  "dataset": "gsm8k",
+  "metric": "random",
+  "started": "20260625-011259",
+  "git_sha": "unknown",
+  "config": {
+    "ABLATION_SAMPLES": 100,
+    "BASE_SEED": 42,
+    "CNN_PROMPT": "Summarize: {q}\nSummary:",
+    "COGNITIVE_RESET_TEXT": "\nWait, let me recalculate this step to be sure:\n",
+    "CONTROL_DATASETS": [
+      [
+        "cnn_dailymail",
+        "3.0.0",
+        "test"
+      ],
+      [
+        "mbpp",
+        null,
+        "test"
+      ]
+    ],
+    "FIGURE_TRACE_LIMIT": 12,
+    "FORMATTING_MARKERS": [
+      "<|im_end|>",
+      "<|im_start|>",
+      "<|endoftext|>",
+      "<|end|>",
+      "<|eot_id|>",
+      "endoftext",
+      "im_start",
+      "im_end",
+      "Human:",
+      "User:",
+      "Assistant:",
+      "System:",
+      "\nHuman",
+      "\nUser",
+      "\nAssistant"
+    ],
+    "GSM8K_PROMPT": "System: Solve step-by-step using basic arithmetic.\nUser: {q}\nResponse:",
+    "GSM8K_SYSTEM": "Solve the math problem step by step using basic arithmetic. End your response with 'The answer is N' where N is the final number.",
+    "HEALTHY_WINDOW": 10,
+    "JUDGE_MAX_NEW_TOKENS": 8,
+    "LAYER_BAND": [
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "LAYER_SELECT_CONTROL_SAMPLES": 20,
+    "LAYER_SELECT_REF_Z": 12.5,
+    "LAYER_SELECT_ROLLOUTS": 1,
+    "LAYER_SELECT_SAMPLES": 20,
+    "MAX_FPR": 0.2,
+    "MAX_NEW_TOKENS_DETECTION": 400,
+    "MAX_NEW_TOKENS_RECOVERY": 256,
+    "MBPP_PROMPT": "System: You are an expert Python programmer.\nUser: {q}\nCode:",
+    "METRICS": [
+      "l2",
+      "sinkhorn",
+      "random"
+    ],
+    "MODELS": [
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen3-8B",
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "google/gemma-2-9b-it"
+    ],
+    "MODEL_ID": "Qwen/Qwen2.5-7B-Instruct",
+    "PKG_DIR": "./auto_pipeline",
+    "PROJECT_DIR": ".",
+    "RECENT_WINDOW": 5,
+    "REWIND_TOKENS": 15,
+    "ROBUSTNESS_SAMPLES": 30,
+    "ROBUSTNESS_SEEDS": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "RUNS_DIR": "./runs",
+    "SECOND_JUDGE": false,
+    "TARE_WINDOW_SIZE": 5,
+    "TARGET_DATASET": [
+      "gsm8k",
+      "main",
+      "test"
+    ],
+    "TARGET_DATASETS": [
+      "gsm8k",
+      "svamp"
+    ],
+    "TARGET_TPR": 0.6,
+    "TEMPERATURE": 0.85,
+    "THRESHOLD_DOWNSTREAM_SAMPLES": 20,
+    "TOP_K": 50,
+    "USE_CHAT_TEMPLATE": true,
+    "Z_GRID": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.5,
+      15.0
+    ]
+  },
+  "selected_layer": 22,
+  "selected_z": 12.5,
+  "stages": {
+    "stage2_ablation": {
+      "status": "ok",
+      "started": "20260625-011259",
+      "finished": "20260625-015546",
+      "artifacts": [
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/ablation.jsonl",
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/trajectories.jsonl",
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/spike_traces.jsonl"
+      ],
+      "n_samples": 100,
+      "triggered": 100,
+      "trigger_rate": 1.0
+    },
+    "stage_labeling": {
+      "status": "ok",
+      "started": "20260625-015546",
+      "finished": "20260625-015546",
+      "artifacts": [
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/labeling.csv",
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/examples.md",
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/failure_types.csv"
+      ],
+      "n_problems": 100,
+      "n_baseline_correct": 44,
+      "n_baseline_wrong": 56,
+      "n_triggered": 100,
+      "auc_maxz_vs_wrong": null,
+      "false_trigger_rate_on_correct": 1.0,
+      "trigger_precision": 0.56,
+      "n_formatting_triggers": 0,
+      "n_genuine_error_triggers": 56,
+      "genuine_error_fraction": 0.56,
+      "is_control": true,
+      "per_path_genuine_flip": [
+        {
+          "path": "path_a_baseline",
+          "genuine_n": 56,
+          "recovered": 3,
+          "flip_rate": 0.05357142857142857
+        },
+        {
+          "path": "path_b_full_cure",
+          "genuine_n": 56,
+          "recovered": 6,
+          "flip_rate": 0.10714285714285714
+        },
+        {
+          "path": "path_c_prompt_only",
+          "genuine_n": 56,
+          "recovered": 7,
+          "flip_rate": 0.125
+        },
+        {
+          "path": "path_d_rewind_only",
+          "genuine_n": 56,
+          "recovered": 4,
+          "flip_rate": 0.07142857142857142
+        }
+      ],
+      "failure_types": {
+        "arithmetic_logical": 54,
+        "semantic_drift": 1,
+        "format_template_collapse": 0,
+        "premature_termination": 1,
+        "other_unclear": 0
+      },
+      "n_failures_typed": 56,
+      "failure_types_retyped": "2026-09-01 corrected classifier (prompt stripped, EOS ignored)"
+    },
+    "stage4_judge": {
+      "status": "ok",
+      "started": "20260625-015546",
+      "finished": "20260625-015720",
+      "artifacts": [
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/judge_results.csv"
+      ],
+      "table": [
+        {
+          "path": "path_a_baseline",
+          "n": 62,
+          "recovered": 61,
+          "rate": 0.9838709677419355,
+          "ci_low": 0.914130769926111,
+          "ci_high": 0.9971472063077598
+        },
+        {
+          "path": "path_b_full_cure",
+          "n": 64,
+          "recovered": 59,
+          "rate": 0.921875,
+          "ci_low": 0.8298024712135222,
+          "ci_high": 0.9661693219045645
+        },
+        {
+          "path": "path_c_prompt_only",
+          "n": 70,
+          "recovered": 63,
+          "rate": 0.9,
+          "ci_low": 0.8076687752123195,
+          "ci_high": 0.9507113248938537
+        },
+        {
+          "path": "path_d_rewind_only",
+          "n": 61,
+          "recovered": 57,
+          "rate": 0.9344262295081968,
+          "ci_low": 0.8431697859953278,
+          "ci_high": 0.9742067130423271
+        }
+      ]
+    },
+    "stage_results": {
+      "status": "ok",
+      "started": "20260625-015720",
+      "finished": "20260625-015720",
+      "artifacts": [
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/results_methods.csv",
+        "./runs/results_table.csv"
+      ],
+      "rows": [
+        {
+          "model": "mistralai/Mistral-7B-Instruct-v0.1",
+          "dataset": "gsm8k",
+          "metric": "random",
+          "method": "random_trigger",
+          "n": 100,
+          "trigger_rate": 1.0,
+          "baseline_accuracy": 0.44,
+          "final_accuracy": 0.37,
+          "recovery_on_failures": 0.10714285714285714,
+          "false_trigger_on_correct": 1.0
+        }
+      ]
+    },
+    "stage5_aggregate": {
+      "status": "ok",
+      "started": "20260625-015720",
+      "finished": "20260625-015720",
+      "artifacts": [
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/master_results.csv",
+        "./runs/master_results.csv",
+        "./runs/20260625-011259-Mistral-7B-Instruct-v0.1-gsm8k-random/plots/recovery_by_path.png"
+      ],
+      "rows": 4
+    }
+  }
+}

@@ -1,0 +1,16 @@
+transformers==4.45.2
+huggingface_hub==0.25.2
+wheel
+torch
+numpy
+accelerate
+datasets
+geomloss
+pykeops
+openai
+pandas
+seaborn
+matplotlib
+transformer-lens
+tqdm
+python-dotenv

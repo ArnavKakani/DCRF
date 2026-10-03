@@ -1,0 +1,4 @@
+model,dataset,metric,method,n,trigger_rate,baseline_accuracy,final_accuracy,recovery_on_failures,false_trigger_on_correct
+Qwen/Qwen2.5-7B-Instruct,gsm8k,l2,baseline_cot,100,0.0,0.9,0.9,,0.0
+Qwen/Qwen2.5-7B-Instruct,gsm8k,l2,prompt_only,100,0.48,0.9,0.87,0.2,0.4777777777777778
+Qwen/Qwen2.5-7B-Instruct,gsm8k,l2,sdr_l2,100,0.48,0.9,0.87,0.2,0.4777777777777778

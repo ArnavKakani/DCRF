@@ -1,0 +1,4 @@
+model,dataset,metric,method,n,trigger_rate,baseline_accuracy,final_accuracy,recovery_on_failures,false_trigger_on_correct
+01-ai/Yi-6B-Chat,gsm8k,l2,baseline_cot,100,0.0,0.04,0.04,,0.0
+01-ai/Yi-6B-Chat,gsm8k,l2,prompt_only,100,0.82,0.04,0.07,0.0625,0.5
+01-ai/Yi-6B-Chat,gsm8k,l2,sdr_l2,100,0.82,0.04,0.09,0.0875,0.5

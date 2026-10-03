@@ -1,0 +1,83 @@
+% Supplementary information for "Detecting and Correcting Reasoning Failures:
+% A Controlled Negative Result for a Residual-Stream Monitor" (MATH-AI, NeurIPS 2026).
+% Separate document from the main paper. Build: tectonic supplementary.tex
+\documentclass{article}
+\usepackage[dblblindworkshop, final]{neurips_2026}
+\workshoptitle{The 6th Workshop on Mathematical Reasoning and AI (MATH-AI), NeurIPS 2026}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,columns=fullflexible,frame=single,language=Python,showstringspaces=false,commentstyle=\color{gray}}
+
+\title{Supplementary Information:\\Detecting and Correcting Reasoning Failures:\\A Controlled Negative Result for a Residual-Stream Monitor}
+\author{%
+  Arnav Kakani \\
+  Emerald High School | Algoverse AI Research\\
+  \texttt{arnavkakani@gmail.com} \\
+  \And
+  Mrinal Agarwal \\
+  Emerald High School | Algoverse AI Research\\
+  \texttt{smmrinal2009@gmail.com}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document accompanies the main paper. It gives everything needed to rerun or extend the experiments: where the code and run artifacts are and what each file contains, the exact command and constants that produced the reported runs, the drift-score definitions as implemented, the source of the two modules that define them, the author contributions, and the compute statement. Every number in the main paper regenerates from the released run artifacts without loading a model.
+\end{abstract}
+
+\section{Code, data, and artifacts}
+The evaluation pipeline, every run artifact, and the figure scripts are released at \url{https://github.com/ArnavKakani/DCRF}. The repository has four parts.
+
+\paragraph{\texttt{auto\_pipeline/}} The pipeline. \texttt{run\_all.py} runs the full chain for one model: layer selection (\texttt{stage0\_layer\_select.py}), threshold calibration (\texttt{stage1\_threshold\_sweep.py}), the four-path recovery ablation (\texttt{stage2\_ablation.py}), correctness and typology labeling (\texttt{stage\_labeling.py}, \texttt{failure\_typology.py}, \texttt{retype\_failures.py}), the threshold-versus-accuracy sweep (\texttt{stage\_threshold\_downstream.py}), seed robustness (\texttt{stage3\_robustness.py}), the coherence judge (\texttt{stage4\_judge.py}), and aggregation (\texttt{stage5\_aggregate.py}, \texttt{stage\_results.py}). The drift scores are in \texttt{drift\_metrics.py}; model loading, prompting, sampling, rollback, the answer extractor, and the exact-match rule are in \texttt{runtime.py}; every constant is in \texttt{config.py} (Section~\ref{sec:constants}).
+
+\paragraph{\texttt{runs/}} The eleven run directories behind every table and figure, named \texttt{<timestamp>-<model>-<dataset>-<metric>}. Each contains \texttt{manifest.json} (model, dataset, full configuration snapshot, per-stage status and timing); \texttt{trajectories.jsonl} (one line per problem: \texttt{uid}, per-problem maximum $z$-score \texttt{max\_z}, trigger index \texttt{spike\_idx}, sampled-baseline answer and correctness); \texttt{ablation.jsonl} (one line per triggered problem: gold answer, the four recovery continuations \texttt{path\_a\_baseline}, \texttt{path\_b\_full\_cure}, \texttt{path\_c\_prompt\_only}, \texttt{path\_d\_rewind\_only}, trigger token and $z$); \texttt{labeling.csv} and \texttt{failure\_types.csv} (recovery flips and the typology); \texttt{judge\_results.csv} (coherence-judge rates per path); \texttt{layer\_select.csv}, \texttt{layer\_traces.csv}, \texttt{threshold\_sweep.csv} (calibration); \texttt{threshold\_downstream/} and \texttt{robustness/} (sweeps); and \texttt{master\_results.csv}. The aggregated \texttt{runs/master\_results.csv} and \texttt{runs/results\_table.csv} are the direct sources of Table~1.
+
+\paragraph{\texttt{auto\_pipeline/figures/}} \texttt{make\_paper\_figures.py} reads only the CSV and JSONL files under \texttt{runs/} and regenerates every figure and the two generated tables; it needs no GPU and no model.
+
+\paragraph{\texttt{pipelines/}} The two standalone ablation scripts (pointwise L2 and set-to-set Sinkhorn) from which the automated stages were built.
+
+\paragraph{Data.} GSM8K and SVAMP are loaded from their public releases through the dataset loader in \texttt{runtime.py}; the first $100$ test problems of each are used for the main ablation, the first $20$ GSM8K problems and $20$ problems each of CNN/DailyMail and MBPP for layer selection. No data is modified or re-packaged.
+
+\section{Reproducing the experiments}
+Install the requirements (\texttt{pip install -r requirements.txt}; \texttt{transformer\_lens}, \texttt{geomloss}, \texttt{torch}), then run
+\begin{lstlisting}[language=bash]
+python auto_pipeline/run_all.py --model <hf-model-id> --dataset gsm8k --metric l2,sinkhorn,random
+\end{lstlisting}
+where \texttt{random} is the random-position control. Each run writes a new directory under \texttt{runs/}. The GPU must hold a 7B model in \texttt{bfloat16} (the weights alone are about 14~GB); by the timestamps in each run's \texttt{manifest.json}, the eleven runs took between $0.5$ and $2.7$ wall-clock hours each on single NVIDIA H100 and A100 instances rented from Lambda. Seed $42$ reproduces the sampled trajectories exactly, so the detector and random-control runs share their wrong-answer sets. To regenerate the paper's figures and tables from the released artifacts:
+\begin{lstlisting}[language=bash]
+python auto_pipeline/figures/make_paper_figures.py --out figs
+\end{lstlisting}
+
+\section{Drift scores as implemented}
+Let $h_t^{(\ell)}\in\mathbb{R}^d$ be the residual-stream state at layer $\ell$ for generated token $t$ (read from \texttt{blocks.\{$\ell$\}.hook\_resid\_post}), and $\hat h_t = h_t^{(\ell)}/(\lVert h_t^{(\ell)}\rVert_2+\epsilon)$ with $\epsilon=10^{-8}$. The first $w_H=10$ generated states are the anchor.
+\begin{align*}
+\text{L2:}\quad & D_t = \lVert \hat h_t - \bar h\rVert_2^2,\qquad \bar h = \tfrac{1}{w_H}\sum_{i=1}^{w_H}\hat h_i;\\
+\text{Sinkhorn:}\quad & D_t = \mathrm{S}_{\lambda}\!\left(\tfrac{1}{k}\sum_{j=0}^{k-1}\delta_{\hat h_{t-j}},\; \tfrac{1}{w_H}\sum_{i=1}^{w_H}\delta_{\hat h_i}\right),\quad k=5,
+\end{align*}
+where $\mathrm{S}_\lambda$ is the entropy-regularized 2-Wasserstein distance computed by \texttt{geomloss.SamplesLoss("sinkhorn", p=2, blur=0.1)}. Scores are standardized within each problem against the $w_T=5$ states after the anchor, $z_t=(D_t-\mu_{\text{tare}})/\max(\sigma_{\text{tare}},10^{-5})$, and the monitor fires at the first $t$ with $z_t>\tau$. A Sinkhorn distance between two single vectors reduces to $\lVert\hat h_t-\bar h\rVert_2^2$; only the set-to-set form above performs any transport.
+
+\section{Constants used for the reported runs}
+\label{sec:constants}
+Excerpt of \texttt{auto\_pipeline/config.py} as recorded in every \texttt{manifest.json}.
+\lstinputlisting{si_config_excerpt.py}
+
+\section{Source: \texttt{drift\_metrics.py}}
+The module that defines the scores above, verbatim.
+\lstinputlisting{si_drift_metrics.py}
+
+\section{Author contributions}
+Arnav Kakani designed the study, built the evaluation pipeline and the controls, ran all experiments, and performed the analysis. Mrinal Agarwal contributed to the writing and editing of the manuscript and served as the reciprocal reviewer. Both authors wrote and revised the paper.
+
+\section{Compute and acknowledgments}
+The GPU compute for all experiments was provided through the Algoverse AI Research program, which both authors took part in during this work; we thank the program for it. All experiments ran on single NVIDIA H100 and A100 instances rented from Lambda, one 7B model in \texttt{bfloat16} at a time, for roughly 19 wall-clock hours across the eleven runs (June 24--25, 2026). The research questions, pipeline, experiments, analysis, and writing are the authors' own.
+
+\end{document}

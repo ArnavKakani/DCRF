@@ -1,0 +1,5 @@
+model,metric,layer,z,mean_trigger_rate,std_trigger_rate,auc_maxz_vs_wrong,false_trigger_rate,genuine_error_fraction,n_genuine,path,recovery_rate,ci_low,ci_high,n,genuine_flip_rate
+Qwen/Qwen2.5-7B-Instruct,random,22,12.5,1.0,0.0,,1.0,0.1,10,path_a_baseline,0.83,0.7445181876635703,0.8910652394022684,100,0.3
+Qwen/Qwen2.5-7B-Instruct,random,22,12.5,1.0,0.0,,1.0,0.1,10,path_b_full_cure,0.75,0.6569535362992417,0.8245490599627573,100,0.3
+Qwen/Qwen2.5-7B-Instruct,random,22,12.5,1.0,0.0,,1.0,0.1,10,path_c_prompt_only,0.69,0.5937376052204429,0.7722043679386762,100,0.2
+Qwen/Qwen2.5-7B-Instruct,random,22,12.5,1.0,0.0,,1.0,0.1,10,path_d_rewind_only,0.88,0.8018773199709163,0.9300066263473222,100,0.3

@@ -1,0 +1,2 @@
+model,dataset,metric,method,n,trigger_rate,baseline_accuracy,final_accuracy,recovery_on_failures,false_trigger_on_correct
+mistralai/Mistral-7B-Instruct-v0.1,gsm8k,random,random_trigger,100,1.0,0.44,0.37,0.10714285714285714,1.0

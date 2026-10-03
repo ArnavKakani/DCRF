@@ -1,0 +1,5 @@
+model,metric,layer,z,mean_trigger_rate,std_trigger_rate,auc_maxz_vs_wrong,false_trigger_rate,genuine_error_fraction,n_genuine,path,recovery_rate,ci_low,ci_high,n,genuine_flip_rate
+mistralai/Mistral-7B-Instruct-v0.1,random,22,12.5,,,,1.0,0.56,56,path_a_baseline,0.9838709677419355,0.914130769926111,0.9971472063077598,62,0.05357142857142857
+mistralai/Mistral-7B-Instruct-v0.1,random,22,12.5,,,,1.0,0.56,56,path_b_full_cure,0.921875,0.8298024712135222,0.9661693219045645,64,0.10714285714285714
+mistralai/Mistral-7B-Instruct-v0.1,random,22,12.5,,,,1.0,0.56,56,path_c_prompt_only,0.9,0.8076687752123195,0.9507113248938537,70,0.125
+mistralai/Mistral-7B-Instruct-v0.1,random,22,12.5,,,,1.0,0.56,56,path_d_rewind_only,0.9344262295081968,0.8431697859953278,0.9742067130423271,61,0.07142857142857142

@@ -1,0 +1,4 @@
+model,dataset,metric,method,n,trigger_rate,baseline_accuracy,final_accuracy,recovery_on_failures,false_trigger_on_correct
+mistralai/Mistral-7B-Instruct-v0.1,gsm8k,l2,baseline_cot,100,0.0,0.44,0.44,,0.0
+mistralai/Mistral-7B-Instruct-v0.1,gsm8k,l2,prompt_only,100,0.99,0.44,0.44,0.17857142857142858,0.9772727272727273
+mistralai/Mistral-7B-Instruct-v0.1,gsm8k,l2,sdr_l2,100,0.99,0.44,0.39,0.16071428571428573,0.9772727272727273
